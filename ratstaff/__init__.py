@@ -2,7 +2,7 @@
 import asyncio
 import click
 import discord
-import dice
+import xdice
 
 
 class RatStaff(discord.Client):
@@ -13,8 +13,9 @@ class RatStaff(discord.Client):
     async def roll_dice(self, message):
         roller = message.author.mention
         request = message.content.strip('%')
-        result = dice.roll(f'{request}+0d1')
-        await self.send_message(message.channel, f'{roller}: {result} ({request})')
+        result = xdice.roll(f'{request}')
+        await self.send_message(message.channel,
+                                f'{roller}: {result.format()} => {result}')
 
     async def on_message(self, message):
         if message.author == self.user:
