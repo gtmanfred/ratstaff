@@ -10,9 +10,10 @@ authors = ["Will Kelly <will.kelly@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "*"
-dice = "*"
 click = "^7.0"
 "discord.py" = "^0.16.12"
+xdice = "^1.1"
+pypandoc = "^1.4"
 
 [tool.poetry.scripts]
 ratstaff = "ratstaff:main"
