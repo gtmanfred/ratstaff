@@ -12,12 +12,37 @@ chardet = "*"
 multidict = ">=2.0"
 
 [[package]]
+category = "dev"
+description = "Async generators and context managers for Python 3.5+"
+marker = "python_version == \"3.5\""
+name = "async-generator"
+optional = false
+python-versions = ">=3.5"
+version = "1.10"
+
+[[package]]
 category = "main"
 description = "Timeout context manager for asyncio programs"
 name = "async-timeout"
 optional = false
 python-versions = "*"
 version = "2.0.1"
+
+[[package]]
+category = "dev"
+description = "Atomic file writes."
+name = "atomicwrites"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "1.2.1"
+
+[[package]]
+category = "dev"
+description = "Classes Without Boilerplate"
+name = "attrs"
+optional = false
+python-versions = "*"
+version = "18.2.0"
 
 [[package]]
 category = "main"
@@ -36,6 +61,15 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 version = "7.0"
 
 [[package]]
+category = "dev"
+description = "Cross-platform colored terminal text."
+marker = "sys_platform == \"win32\""
+name = "colorama"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "0.4.1"
+
+[[package]]
 category = "main"
 description = "A python wrapper for the Discord API"
 name = "discord.py"
@@ -48,12 +82,51 @@ aiohttp = ">=1.0.0,<1.1.0"
 websockets = ">=3.1,<4.0"
 
 [[package]]
+category = "dev"
+description = "More routines for operating on iterables, beyond itertools"
+name = "more-itertools"
+optional = false
+python-versions = "*"
+version = "5.0.0"
+
+[package.dependencies]
+six = ">=1.0.0,<2.0.0"
+
+[[package]]
 category = "main"
 description = "multidict implementation"
 name = "multidict"
 optional = false
 python-versions = "*"
 version = "3.3.1"
+
+[[package]]
+category = "dev"
+description = "Object-oriented filesystem paths"
+marker = "python_version < \"3.6\""
+name = "pathlib2"
+optional = false
+python-versions = "*"
+version = "2.3.3"
+
+[package.dependencies]
+six = "*"
+
+[[package]]
+category = "dev"
+description = "plugin and hook calling mechanisms for python"
+name = "pluggy"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "0.8.1"
+
+[[package]]
+category = "dev"
+description = "library with cross-python path, ini-parsing, io, code, log facilities"
+name = "py"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "1.7.0"
 
 [[package]]
 category = "main"
@@ -67,6 +140,51 @@ version = "1.4"
 pip = ">=8.1.0"
 setuptools = "*"
 wheel = ">=0.25.0"
+
+[[package]]
+category = "dev"
+description = "pytest: simple powerful testing with Python"
+name = "pytest"
+optional = false
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
+version = "4.1.1"
+
+[package.dependencies]
+atomicwrites = ">=1.0"
+attrs = ">=17.4.0"
+colorama = "*"
+more-itertools = ">=4.0.0"
+pluggy = ">=0.7"
+py = ">=1.5.0"
+setuptools = "*"
+six = ">=1.10.0"
+
+[package.dependencies.pathlib2]
+python = "<3.6"
+version = ">=2.2.0"
+
+[[package]]
+category = "dev"
+description = "Pytest support for asyncio."
+name = "pytest-asyncio"
+optional = false
+python-versions = ">= 3.5"
+version = "0.10.0"
+
+[package.dependencies]
+pytest = ">=3.0.6"
+
+[package.dependencies.async-generator]
+python = ">=3.5,<3.6"
+version = ">=1.3"
+
+[[package]]
+category = "dev"
+description = "Python 2 and 3 compatibility utilities"
+name = "six"
+optional = false
+python-versions = ">=2.6, !=3.0.*, !=3.1.*"
+version = "1.12.0"
 
 [[package]]
 category = "main"
@@ -93,17 +211,28 @@ python-versions = "*"
 version = "1.1.2"
 
 [metadata]
-content-hash = "ead1afeaace790d1a65ef67c5873cdeb2f5db74325c77169e0881899ac0e764f"
-python-versions = "*"
+content-hash = "d9583127313acf37cda750aa46112096bf7e20353625f838622ad508a35e14a3"
+python-versions = "^3.5"
 
 [metadata.hashes]
 aiohttp = ["3a253332a0d8f82549e65035ebe7199580c3ea0e47071b7428f25b109b3c0310", "3ac6fa105355928e2fc02e876d0d72d6230557d4637017ebf09aec7611124155", "3bfcb76553d7f6296d1a598162d5fb890198f98c021540cbbb85bb604ff198db", "714c62532ca6be90be4b54002743e7ea277ec78b45f04ae86cdc6f45a8400abd", "81a6aaace2b9e8a87531277a5d5f998efbd3554c15bf47173834386966d1bbe1", "ad374a5d7be1de271ecd0fb0ef87c0f8dd9fb062e6fae350fa6c098360018978", "c3e1897726f97d40e067e8b658b2dbdfe216f32b801c5c589212e1b1f9aa8388", "c579ec606f25b3f756f177fee6db344f8d7ef75cfc0603a94c9fa1d1c645789d", "e1985766a4c83fcbdf7dde06544231fc9fb3de8929788179e623d6f9f9f321d2"]
+async-generator = ["01c7bf666359b4967d2cda0000cc2e4af16a0ae098cbffcb8472fb9e8ad6585b", "6ebb3d106c12920aaae42ccb6f787ef5eefdcdd166ea3d628fa8476abe712144"]
 async-timeout = ["00cff4d2dce744607335cba84e9929c3165632da2d27970dbc55802a0c7873d0", "9093db5b8ddbe4b8f6885d1a6e0ad84ae3155464cbf6877c387605244c285f3c"]
+atomicwrites = ["0312ad34fcad8fac3704d441f7b317e50af620823353ec657a53e981f92920c0", "ec9ae8adaae229e4f8446952d204a3e4b5fdd2d099f9be3aaf556120135fb3ee"]
+attrs = ["10cbf6e27dbce8c30807caf056c8eb50917e0eaafe86347671b57254006c3e69", "ca4be454458f9dec299268d472aaa5a11f67a4ff70093396e1ceae9c76cf4bbb"]
 chardet = ["84ab92ed1c4d4f16916e05906b6b75a6c0fb5db821cc65e70cbd64a3e2a5eaae", "fc323ffcaeaed0e0a02bf4d117757b98aed530d9ed4531e3e15460124c106691"]
 click = ["2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13", "5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"]
+colorama = ["05eed71e2e327246ad6b38c540c4a3117230b19679b875190486ddd2d721422d", "f8ac84de7840f5b9c4e3347b3c1eaa50f7e49c2b07596221daec5edaabbd7c48"]
 "discord.py" = ["17fb8814100fbaf7a79468baa432184db6cef3bbea4ad194fe297c7407d50108"]
+more-itertools = ["38a936c0a6d98a38bcc2d03fdaaedaba9f412879461dd2ceff8d37564d6522e4", "c0a5785b1109a6bd7fac76d6837fd1feca158e54e521ccd2ae8bfe393cc9d4fc", "fe7a7cae1ccb57d33952113ff4fa1bc5f879963600ed74918f1236e212ee50b9"]
 multidict = ["109b0f531d8a6071b6a109a6fc762baeaddad4a38c8abb3d5a69b90b909f4f6c", "15b5ce5320eacad3ddd98c3437f696c6059fa2a0c5312727338fd2f9046aab0a", "1f311908a749f341c3b0adb348231a4530f054c5cec28935dcfda5f9c93937be", "2034bde19e67907bf554e4612e2de34be93c43ab21d4ae47279824f3525c40fd", "25ddd2a5ca2c4e3c234d4b702be70a60561a1efadad63b6890c30a87c5536b84", "33c2c4016e6caf9dfbb4cc821944f11711dd1d1ab54fbc49a2a06f491b8f8dea", "35c72678176d8ffe736f85fc0fe2c6241fde79cb2ef765de67a940706f4ab7be", "4a328b216e324e15abc1735f513dd345a31e8b2d09e6f0e4a34000f1e963d85b", "4d6ab5a9bb5a50dbec6af871e565fd77ba38609bb6075787d9f50039549f2e5a", "630032d10e11df92d53acafb07985967fbd32f634c9ca0b3d81807c24711426b", "653a8cdfd950d85e683d359a92b12bb901127e2c5649adb2b992d356056adae3", "8085768567f1b17714cf8d7b7ff4f991b9eb03a56c1e5e3e5a7f9043cb4dab52", "b3b84c79d8cb8db525971e0c489d91fb3cbc30ff8195df8ff281c8c02b9faca0", "ba2cd5528c46d10e0405340bab8add78cde1afff9a5f7c04fd3d6da6105b5a54", "c926066aab40f2cdc834f481f6ada0b1a4fdb486565182dfe3ce7679d52d125a", "d1d2f4d02e346bfdac911e1c105438e6405bf4f5f847f047c573ce071818f9f0", "d398fcda80b8a4509cc56f48208ff748694cfcfe66c0fec0dced8aa725500991", "e1af9a3fd26cabe5eab6acd193658fd44ac08701951eaa2f58d2f5e2b2a28e24", "ed1b732c912b9ed625822a33ac4a7f2411bfaa0fac40a08cdbc90bbbe943f5bb", "f44cf3d40a6a26aa2ce3e3ecabeb5459fd4c29becff064e6e546fff8cfde7e78", "fa9166ad83f990c9c4a8aaf438017f8ece3d4d82a93167283d5aae3460bcdeb9", "fbcdaf438ab63851dad8bdc85f137b4101ad0a1e8a18919ebf88eaacdbda2f5f"]
+pathlib2 = ["25199318e8cc3c25dcb45cbe084cc061051336d5a9ea2a12448d3d8cb748f742", "5887121d7f7df3603bca2f710e7219f3eca0eb69e0b7cc6e0a022e155ac931a7"]
+pluggy = ["8ddc32f03971bfdf900a81961a48ccf2fb677cf7715108f85295c67405798616", "980710797ff6a041e9a73a5787804f848996ecaa6f8a1b1e08224a5894f2074a"]
+py = ["bf92637198836372b520efcba9e020c330123be8ce527e535d185ed4b6f45694", "e76826342cefe3c3d5f7e8ee4316b80d1dd8a300781612ddbc765c17ba25a6c6"]
 pypandoc = ["e914e6d5f84a76764887e4d909b09d63308725f0cbb5293872c2c92f07c11a5b"]
+pytest = ["41568ea7ecb4a68d7f63837cf65b92ce8d0105e43196ff2b26622995bb3dc4b2", "c3c573a29d7c9547fb90217ece8a8843aa0c1328a797e200290dc3d0b4b823be"]
+pytest-asyncio = ["9fac5100fd716cbecf6ef89233e8590a4ad61d729d1732e0a96b84182df1daaf", "d734718e25cfc32d2bf78d346e99d33724deeba774cc4afdf491530c6184b63b"]
+six = ["3350809f0555b11f552448330d0b52d5f24c91a322ea4a15ef22629740f3761c", "d16a0141ec1a18405cd4ce8b4613101da75da0e9a7aec5bdd4fa804d0e0eba73"]
 websockets = ["09dfec40e9b73e8808c39ecdbc1733e33915a2b26b90c54566afc0af546a9ec3", "2aa6d52264cecb08d39741e8fda49f5ac4872aef02617230c84d02e861f3cc5a", "2f5b7f3920f29609086fb0b63552bb1f86a04b8cbdcc0dbf3775cc90d489dfc8", "3d38f76f71654268e5533b45df125ff208fee242a102d4b5ca958da5cf5fb345", "3fcc7dfb365e81ff8206f950c86d1e73accdf3be2f9110c0cb73be32d2e7a9a5", "4128212ab6f91afda03a0c697add261bdf6946b47928db83f07298ea2cd8d937", "43e5b9f51dd0000a4c6f646e2ade0c886bd14a784ffac08b9e079bd17a63bcc5", "4a932c17cb11c361c286c04842dc2385cc7157019bbba8b64808acbc89a95584", "5ddc5fc121eb76771e990f071071d9530e27d20e8cfb804d9f5823de055837af", "7347af28fcc70eb45be409760c2a428f8199e7f73c04a621916c3c219ed7ad27", "85ae1e4b36aa2e90de56d211d2de36d7c093d00277a9afdd9b4f81e69c0214ab", "8a29100079f5b91a72bcd25d35a7354db985d3babae42d00b9d629f9a0aaa8ac", "a7e7585c8e3c0f9277ad7d6ee6ccddc69649cd216255d5e255d68f90482aeefa", "aa42ecef3aed807e23218c264b1e82004cdd131a6698a10b57fc3d8af8f651fc", "b19e7ede1ba80ee9de6f5b8ccd31beee25402e68bef7c13eeb0b8bc46bc4b7b7", "c4c5b5ce2d66cb0cf193c14bc9726adca095febef0f7b2c04e5e3fa3487a97a4", "de743ef26b002efceea7d7756e99e5d38bf5d4f27563b8d27df2a9a5cc57340a", "e1e568136ad5cb6768504be36d470a136b072acbf3ea882303aee6361be01941", "e8992f1db371f2a1c5af59e032d9dc7c1aa92f16241efcda695b7d955b4de0c2", "e9c1cdbb591432c59d0b5ca64fd30b6d517024767f152fc169563b26e7bcc9da"]
 wheel = ["029703bf514e16c8271c3821806a1c171220cc5bdd325cbf4e7da1e056a01db6", "1e53cdb3f808d5ccd0df57f964263752aa74ea7359526d3da6c02114ec1e1d44"]
 xdice = ["cb8e7ca465a49a094ccf6c5d53c60cc3764077c31f33f5a55aea25b23c99ce2a"]
