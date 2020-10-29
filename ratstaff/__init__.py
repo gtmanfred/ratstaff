@@ -31,6 +31,23 @@ class RatStaff(discord.Client):
         if delete is True:
             self.loop.create_task(message.delete())
 
+    async def multi_roll_dice(self, message, request, count, delete=False):
+        roller = message.author.mention
+        tray = dicetray.Dicetray(request)
+        response = [f'{roller}: Rolling {count} iterations...']
+        total = 0
+        try:
+            for _ in range(count):
+                result = tray.roll()
+                total += result
+                response.append(f'{tray.format(verbose=True)} => {result}')
+        except sly.lex.LexError:
+            return
+        response.append(f'**Total**: {total}')
+        await message.channel.send('\n'.join(response))
+        if delete is True:
+            self.loop.create_task(message.delete())
+
     async def on_message(self, message):
         if message.author == self.user:
             return
@@ -39,6 +56,11 @@ class RatStaff(discord.Client):
         if content.startswith('roll '):
             self.loop.create_task(
                 self.roll_dice(message, content[5:], delete=True),
+            )
+        elif content.startswith('multiroll') or content.startswith('rr'):
+            _, number, roll = content.split(' ', 2)
+            self.loop.create_task(
+                self.multi_roll_dice(message, roll, int(number))
             )
         elif content[0].isdigit():
             self.loop.create_task(self.roll_dice(message, content))
