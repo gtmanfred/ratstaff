@@ -1,1 +1,1 @@
-worker: python3 -m ratstaff
+worker: python -m ratstaff
