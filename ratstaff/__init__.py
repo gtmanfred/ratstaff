@@ -16,7 +16,7 @@ class RatStaff(discord.Client):
         self.loop = asyncio.get_event_loop()
         super().__init__()
 
-    async def roll_dice(self, message, request, delete=False):
+    async def roll_dice(self, message, request, label=None, delete=False):
         roller = message.author.mention
         tray = dicetray.Dicetray(request)
         try:
@@ -25,7 +25,7 @@ class RatStaff(discord.Client):
             return
         await message.channel.send(
             f'{roller}: :game_die:\n'
-            f'**Result**: {tray.format(verbose=True)}\n'
+            f'**{label or "Result"}**: {tray.format(verbose=True)}\n'
             f'**Total**: {result}'
         )
         if delete is True:
@@ -54,8 +54,10 @@ class RatStaff(discord.Client):
 
         content = message.content.lstrip('%')
         if content.startswith('roll '):
+            _, request, *label = content.split(' ')
+            label = ' '.join(label)
             self.loop.create_task(
-                self.roll_dice(message, content[5:], delete=True),
+                self.roll_dice(message, request, label=label, delete=True),
             )
         elif content.startswith('multiroll') or content.startswith('rr'):
             _, number, roll = content.split(' ', 2)
@@ -63,7 +65,9 @@ class RatStaff(discord.Client):
                 self.multi_roll_dice(message, roll, int(number))
             )
         elif content[0].isdigit():
-            self.loop.create_task(self.roll_dice(message, content))
+            _, request, *label = content.split(' ')
+            label = ' '.join(label)
+            self.loop.create_task(self.roll_dice(message, request, label=label))
 
     async def on_ready(self):
         print('Logged in as')
