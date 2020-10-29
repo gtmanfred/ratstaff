@@ -16,7 +16,7 @@ class RatStaff(discord.Client):
         self.loop = asyncio.get_event_loop()
         super().__init__()
 
-    async def roll_dice(self, message, request):
+    async def roll_dice(self, message, request, delete=False):
         roller = message.author.mention
         tray = dicetray.Dicetray(request)
         try:
@@ -26,6 +26,8 @@ class RatStaff(discord.Client):
         await message.channel.send(
             f'{roller}: {tray.format(verbose=True)} => {result}',
         )
+        if delete is True:
+            self.loop.create_task(message.delete())
 
     async def on_message(self, message):
         if message.author == self.user:
@@ -33,8 +35,7 @@ class RatStaff(discord.Client):
 
         content = message.content.lstrip('%')
         if content.startswith('roll '):
-            self.loop.create_task(self.roll_dice(message, content[5:]))
-            self.loop.create_task(message.delete())
+            self.loop.create_task(self.roll_dice(message, content[5:], delete=True))
         elif content[0].isdigit():
             self.loop.create_task(self.roll_dice(message, content))
 
