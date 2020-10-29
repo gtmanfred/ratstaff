@@ -65,9 +65,11 @@ class RatStaff(discord.Client):
                 self.multi_roll_dice(message, roll, int(number))
             )
         elif content[0].isdigit():
-            _, request, *label = content.split(' ')
+            request, *label = content.split(' ')
             label = ' '.join(label)
-            self.loop.create_task(self.roll_dice(message, request, label=label))
+            self.loop.create_task(
+                self.roll_dice(message, request, label=label),
+            )
 
     async def on_ready(self):
         print('Logged in as')
