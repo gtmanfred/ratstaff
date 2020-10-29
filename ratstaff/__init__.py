@@ -25,7 +25,7 @@ class RatStaff(discord.Client):
             return
         await message.channel.send(
             f'{roller}: :game_die:\n'
-            f'**{label or "Result"}**: {tray.format(verbose=True)}\n'
+            f'**{label or "Result"}**: {tray.format(verbose=True, markdown=True)}\n'
             f'**Total**: {result}'
         )
         if delete is True:
@@ -40,7 +40,7 @@ class RatStaff(discord.Client):
             for _ in range(count):
                 result = tray.roll()
                 total += result
-                response.append(f'{tray.format(verbose=True)} => {result}')
+                response.append(f'{tray.format(verbose=True, markdown=True)} => {result}')
         except sly.lex.LexError:
             return
         response.append(f'**Total**: {total}')
