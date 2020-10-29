@@ -24,7 +24,9 @@ class RatStaff(discord.Client):
         except sly.lex.LexError:
             return
         await message.channel.send(
-            f'{roller}: {tray.format(verbose=True)} => {result}',
+            f'{roller}: :game_die:\n'
+            f'**Result**: {tray.format(verbose=True)}\n'
+            f'**Total**: {result}'
         )
         if delete is True:
             self.loop.create_task(message.delete())
@@ -35,7 +37,9 @@ class RatStaff(discord.Client):
 
         content = message.content.lstrip('%')
         if content.startswith('roll '):
-            self.loop.create_task(self.roll_dice(message, content[5:], delete=True))
+            self.loop.create_task(
+                self.roll_dice(message, content[5:], delete=True),
+            )
         elif content[0].isdigit():
             self.loop.create_task(self.roll_dice(message, content))
 
@@ -49,7 +53,11 @@ class RatStaff(discord.Client):
 def _setup_logging(level):
     log.setLevel(getattr(logging, level.upper(), 'INFO'))
     handler = logging.StreamHandler(sys.stdout)
-    handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(message)s'))
+    handler.setFormatter(
+        logging.Formatter(
+            '%(asctime)s:%(levelname)s:%(name)s: %(message)s',
+        ),
+    )
     log.addHandler(handler)
 
 
