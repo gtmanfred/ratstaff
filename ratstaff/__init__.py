@@ -52,7 +52,7 @@ class RatStaff(discord.Client):
         if message.author == self.user or not message.content:
             return
 
-        content = message.content.lstrip('%')
+        content = message.content.lstrip('%/!@#.')
         if content.startswith('roll '):
             _, request, *label = content.split(' ')
             label = ' '.join(label)
