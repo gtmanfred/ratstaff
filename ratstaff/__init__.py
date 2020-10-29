@@ -49,7 +49,7 @@ class RatStaff(discord.Client):
             self.loop.create_task(message.delete())
 
     async def on_message(self, message):
-        if message.author == self.user:
+        if message.author == self.user or not message.content:
             return
 
         content = message.content.lstrip('%')
