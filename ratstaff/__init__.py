@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import asyncio
 import logging
+import textwrap
 import sys
 
 import click
@@ -25,9 +26,14 @@ class RatStaff(discord.Client):
             result = tray.roll()
         except (sly.lex.LexError, dicetray.MaxDiceExceeded):
             return
+        data = textwrap.shorten(
+            tray.format(verbose=True, markdown=True),
+            width=1500,
+            placeholder='...',
+        )
         await message.channel.send(
             f'{roller}: :game_die:\n'
-            f'**{label or "Result"}**: {tray.format(verbose=True, markdown=True)}\n'
+            f'**{label or "Result"}**: {data}\n'
             f'**Total**: {result}'
         )
         if delete is True:
