@@ -6,7 +6,7 @@ import sys
 
 import click
 import discord
-import dicetray
+import dicetray.parser
 import sly.lex
 
 log = logging.getLogger('discord')
@@ -24,7 +24,11 @@ class RatStaff(discord.Client):
         tray = dicetray.Dicetray(request)
         try:
             result = tray.roll()
-        except (sly.lex.LexError, dicetray.MaxDiceExceeded):
+        except (
+            sly.lex.LexError,
+            dicetray.MaxDiceExceeded,
+            dicetray.parser.ParserError,
+        ):
             return
         data = textwrap.shorten(
             tray.format(verbose=True, markdown=True),
@@ -49,7 +53,11 @@ class RatStaff(discord.Client):
                 result = tray.roll()
                 total += result
                 response.append(f'{tray.format(verbose=True, markdown=True)} => {result}')
-        except (sly.lex.LexError, dicetray.MaxDiceExceeded):
+        except (
+            sly.lex.LexError,
+            dicetray.MaxDiceExceeded,
+            dicetray.parser.ParserError,
+        ):
             return
         response.append(f'**Total**: {total}')
         await message.channel.send('\n'.join(response))
