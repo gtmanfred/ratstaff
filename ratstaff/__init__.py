@@ -17,6 +17,8 @@ class RatStaff(discord.Client):
         super().__init__()
 
     async def roll_dice(self, message, request, label=None, delete=False):
+        if 'd' not in request:
+            return
         roller = message.author.mention
         tray = dicetray.Dicetray(request)
         try:
