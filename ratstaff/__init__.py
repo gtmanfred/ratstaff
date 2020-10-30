@@ -23,7 +23,7 @@ class RatStaff(discord.Client):
         tray = dicetray.Dicetray(request)
         try:
             result = tray.roll()
-        except sly.lex.LexError:
+        except (sly.lex.LexError, dicetray.MaxDiceExceeded):
             return
         await message.channel.send(
             f'{roller}: :game_die:\n'
@@ -43,7 +43,7 @@ class RatStaff(discord.Client):
                 result = tray.roll()
                 total += result
                 response.append(f'{tray.format(verbose=True, markdown=True)} => {result}')
-        except sly.lex.LexError:
+        except (sly.lex.LexError, dicetray.MaxDiceExceeded):
             return
         response.append(f'**Total**: {total}')
         await message.channel.send('\n'.join(response))
