@@ -17,10 +17,7 @@ class RatStaff(discord.Client):
         self.loop = asyncio.get_event_loop()
         super().__init__()
 
-    async def roll_dice(self, message, request, label=None, delete=False):
-        if 'd' not in request:
-            return
-        roller = message.author.mention
+    def roll(request):
         tray = dicetray.Dicetray(request)
         try:
             result = tray.roll()
@@ -29,7 +26,23 @@ class RatStaff(discord.Client):
             dicetray.MaxDiceExceeded,
             dicetray.parser.ParserError,
         ):
+            return False, None
+        return result, tray
+
+
+    async def roll_dice(self, message, request, delete=False):
+        if 'd' not in request:
             return
+        label = None
+        roller = message.author.mention
+        result, tray = self.roll(request)
+        if result is False:
+            request, *label = request.split(' ')
+            label = ' '.join(label)
+            result, tray = self.roll(request)
+            if result is False:
+                return
+
         data = textwrap.shorten(
             tray.format(verbose=True, markdown=True),
             width=1500,
@@ -70,10 +83,10 @@ class RatStaff(discord.Client):
 
         content = message.content.lstrip('%/!@#.')
         if content.startswith('roll '):
-            _, request, *label = content.split(' ')
-            label = ' '.join(label)
+            _, *request = content.split(' ')
+            request = ' '.join(request)
             self.loop.create_task(
-                self.roll_dice(message, request, label=label, delete=True),
+                self.roll_dice(message, request, delete=True),
             )
         elif content.startswith('multiroll') or content.startswith('rr'):
             _, number, roll = content.split(' ', 2)
@@ -81,10 +94,8 @@ class RatStaff(discord.Client):
                 self.multi_roll_dice(message, roll, int(number))
             )
         elif content[0].isdigit():
-            request, *label = content.split(' ')
-            label = ' '.join(label)
             self.loop.create_task(
-                self.roll_dice(message, request, label=label),
+                self.roll_dice(message, content),
             )
 
     async def on_ready(self):
