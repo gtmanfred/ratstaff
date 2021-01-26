@@ -17,7 +17,7 @@ class RatStaff(discord.Client):
         self.loop = asyncio.get_event_loop()
         super().__init__()
 
-    def roll(request):
+    def roll(self, request):
         tray = dicetray.Dicetray(request)
         try:
             result = tray.roll()
