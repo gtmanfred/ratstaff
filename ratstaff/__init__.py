@@ -34,14 +34,18 @@ class RatStaff(discord.Client):
     async def roll_dice(self, message, request, delete=False):
         if 'd' not in request:
             return
+        log.debug('rolling dice %s', request)
         label = None
         roller = message.author.mention
         result, tray = self.roll(request)
+        log.debug('Only roll response %s, %s', result, tray)
         if result is False:
             request, *label = request.split(' ')
             label = ' '.join(label)
             result, tray = self.roll(request)
+            log.debug('With message result %s, %s', result, tray)
             if result is False:
+                log.debug('Unable to parse message %s', request)
                 return
 
         data = textwrap.shorten(
@@ -55,6 +59,7 @@ class RatStaff(discord.Client):
             f'**Total**: {result}'
         )
         if delete is True:
+            log.debug('Deleting message: %s', message)
             self.loop.create_task(message.delete())
 
     async def multi_roll_dice(self, message, request, count, delete=False):
