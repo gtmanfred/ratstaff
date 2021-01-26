@@ -17,7 +17,8 @@ class RatStaff(discord.Client):
         self.loop = asyncio.get_event_loop()
         super().__init__()
 
-    def roll(self, request):
+    @staticmethod
+    def roll(request):
         tray = dicetray.Dicetray(request)
         try:
             result = tray.roll()
@@ -93,7 +94,7 @@ class RatStaff(discord.Client):
             self.loop.create_task(
                 self.multi_roll_dice(message, roll, int(number))
             )
-        elif content[0].isdigit():
+        elif content[0].isdigit() or content[0] == 'd':
             self.loop.create_task(
                 self.roll_dice(message, content),
             )
