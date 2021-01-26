@@ -122,6 +122,7 @@ def _setup_logging(level):
 @click.option(
     'level', '--log-level', '-l',
     type=click.Choice(['INFO', 'DEBUG', 'WARNING', 'CRITICAL']),
+    envvar='LOGLEVEL',
     default='INFO',
     help='level of logs to print out',
 )
