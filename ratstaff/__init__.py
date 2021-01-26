@@ -35,18 +35,17 @@ class RatStaff(discord.Client):
         if 'd' not in request:
             return
         log.debug('rolling dice %s', request)
-        label = None
+        label = ''
         roller = message.author.mention
         result, tray = self.roll(request)
-        log.debug('Only roll response %s, %s', result, tray)
-        if result is False:
-            request, *label = request.split(' ')
-            label = ' '.join(label)
+        while result is False and request:
+            request, next_label = request.rsplit(' ', 1)
+            label = f'{next_label} {label}'
             result, tray = self.roll(request)
-            log.debug('With message result %s, %s', result, tray)
-            if result is False:
-                log.debug('Unable to parse message %s', request)
-                return
+            log.debug('Roll response %s: result=%s,tray=%s', request, result, tray)
+        if result is False:
+            log.debug('unable to parse roll: %s', message.content)
+            return
 
         data = textwrap.shorten(
             tray.format(verbose=True, markdown=True),
