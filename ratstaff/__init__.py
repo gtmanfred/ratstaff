@@ -98,10 +98,18 @@ class RatStaff(discord.Client):
             self.loop.create_task(
                 self.multi_roll_dice(message, roll, int(number))
             )
-        elif content[0].isdigit() or content[0] == 'd':
+        elif self._check_msg_for_roll(content):
             self.loop.create_task(
                 self.roll_dice(message, content),
             )
+
+    @staticmethod
+    def _check_msg_for_roll(content):
+        if content[0] == 'd':
+            return True
+        if content[0].isdigit() and 'd' in content.split(' ', 1)[0]:
+            return True
+        return False
 
     async def on_ready(self):
         print('Logged in as')
